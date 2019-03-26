@@ -49,8 +49,10 @@ sid=$(docker run -d --name postgres-slave \
              -e REPLICATION_ROLE=slave \
              -t "$image")
 trap "docker rm -f $mid $sid > /dev/null" EXIT
+echo $mid
+echo $sid
 
-poll 3 times
+poll 5 times
 psql master "CREATE TABLE replication_test (a INT, b INT, c VARCHAR(255))"
 psql master "INSERT INTO replication_test VALUES (1, 2, 'it works')"
 
