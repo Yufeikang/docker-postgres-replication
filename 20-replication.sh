@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-psql -U postgres -c "create extension zhparser"
-psql -U postgres -c "create text search configuration chinese (PARSER = zhparser)"
-psql -U postgres -c "alter text search configuration chinese add mapping for n,v,a,i,e,l with simple"
 
 if [ $REPLICATION_ROLE = "master" ]; then
     psql -U postgres -c "CREATE ROLE $REPLICATION_USER WITH REPLICATION PASSWORD '$REPLICATION_PASSWORD' LOGIN"
